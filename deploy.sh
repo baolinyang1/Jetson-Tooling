@@ -14,9 +14,11 @@ DATA_DIR="${PROJECT_DIR}/data"
 mkdir -p "$MODELS_DIR" "$ENGINES_DIR" "$DATA_DIR"
 
 echo "Building Docker image..."
-docker build \
+docker buildx build \
+  --platform linux/arm64 \
   --build-arg BASE_IMAGE="$BASE_IMAGE" \
   -t "${IMAGE_NAME}:${IMAGE_TAG}" \
+  --load \
   "$PROJECT_DIR"
 
 echo "Starting container..."
